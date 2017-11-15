@@ -19,11 +19,11 @@ function sendSocialEvent (e) {
 $link.on('click', sendSocialEvent);
 
 function hideVideoView() {
-    $(this).on('click', showVideoView).removeClass('active');
+    $(this).on('click', showVideoView).parents('.item').first().removeClass('active');
 }
 
 function showVideoView() {
-    $(this).on('click', hideVideoView).addClass('active');
+    $(this).on('click', hideVideoView).parents('.item').first().addClass('active');
 }
 
 function videoTemplate(video) {
@@ -62,11 +62,9 @@ function callback(res) {
 
     $result.html(html);
 
-    $text.html( textSearch + ', Do you want to do the search on YouTube?');
+    // $text.html( textSearch + ', Do you want to do the search on YouTube?');
 
     $link.attr('href','http://www.youtube.com/results?search_query=' + textSearch );
-
-    $('.item').on('click', showVideoView);
 
     // if ($(window).width() > 768) {
     //     $('article:first-child').off('click');
@@ -74,9 +72,11 @@ function callback(res) {
 
     $right.css({ display:'block' });
 
-    $('a').on('click', function(){
-        event.preventDefault();
+    $('a').on('click', function(e){
+        e.preventDefault();
     });
+
+    $('.show_video').on('click', showVideoView);
 
     $query.val('');
 }
