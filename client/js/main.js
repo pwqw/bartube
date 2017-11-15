@@ -8,7 +8,8 @@ var url = 'https://www.googleapis.com/youtube/v3/search',
     $link = $('#link'),
     $text = $('#text'),
     $item,
-    textSearch;
+    textSearch,
+    items;
 
 function sendSocialEvent (e) {
     e.preventDefault();
@@ -26,7 +27,12 @@ function showVideoView() {
     $(this).on('click', hideVideoView).parents('.item').first().addClass('active');
 }
 
-function videoTemplate(video) {
+function encolarVideoView() {
+    var video = items[$(this).data('id')];
+    alert("enviando: " + video.snippet.title);
+}
+
+function videoTemplate(video, i) {
     if (video.id.kind == 'youtube#channel') {
         return ''
     }
@@ -38,6 +44,7 @@ function videoTemplate(video) {
         thumb = video.snippet.thumbnails.high.url,
         embed = "https://www.youtube.com/embed/" + video.id.videoId,
         views = "10K",
+        id = i,
         html = "";
 
     html = Mustache.render(Templates.video, {
@@ -47,17 +54,18 @@ function videoTemplate(video) {
         category : category,
         published : published,
         embed : embed,
-        views : views
+        views : views,
+        id : id
     });
 
     return html;
 }
 
 function callback(res) {
-    res = res.items;
+    items = res.items;
     var html = '';
-    for (var i=1; i<res.length; i++) {
-        html += videoTemplate(res[i]);
+    for (var i=1; i<items.length; i++) {
+        html += videoTemplate(items[i], i);
     }
 
     $result.html(html);
@@ -77,6 +85,7 @@ function callback(res) {
     });
 
     $('.show_video').on('click', showVideoView);
+    $('.encolar_video').on('click', encolarVideoView);
 
     $query.val('');
 }
