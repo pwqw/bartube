@@ -27,6 +27,10 @@ function showVideoView() {
 }
 
 function videoTemplate(video) {
+    if (video.id.kind == 'youtube#channel') {
+        return ''
+    }
+
     var title = video.snippet.title,
         published = video.snippet.publishedAt.split('T')[0].replace('-','/').replace('-','/'),
         author = video.snippet.channelTitle,
@@ -64,9 +68,9 @@ function callback(res) {
 
     $('.item').on('click', showVideoView);
 
-    if ($(window).width() > 768) {
-        $('article:first-child').off('click');
-    }
+    // if ($(window).width() > 768) {
+    //     $('article:first-child').off('click');
+    // }
 
     $right.css({ display:'block' });
 
@@ -78,7 +82,7 @@ function callback(res) {
 }
 
 function submit() {
-    $query.val($query.val() || 'Go Pro Videos');
+    $query.val($query.val() || 'Planeta Cabezon Rosario');
     textSearch = $query.val();
     // Envento de Segment
     // ga.track('Search a video', {
