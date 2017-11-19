@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    // var database = firebase.database();
-    // database.ref('primero/1').set({
-    //     username: 'bar',
-        // email: 'tube'
-    // });
+    var database = firebase.database();
+
+    database.ref('playlist').on('value', function (data) {
+        console.log(JSON.stringify(data, null, 2))
+    });
 
 });

@@ -29,7 +29,7 @@ function showVideoView() {
 
 function encolarVideoView() {
     var video = items[$(this).data('id')];
-    firebase.database().ref( video.id.videoId ).set({
+    firebase.database().ref('playlist/' + video.id.videoId ).set({
         video: video,
         datetime: Date.now()
     });
