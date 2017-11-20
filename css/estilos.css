@@ -469,7 +469,7 @@ header #logo img:hover, header #logo img.hover_effect {
   border-bottom: 1px solid #ccc;
   padding-bottom: 15px; }
 
-#result_youtube {
+.result_youtube {
   display: inline-block;
   margin: 0 1%;
   transition: all 0.2s ease;
