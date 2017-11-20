@@ -119,6 +119,10 @@ header #logo img:hover,header #logo img.hover_effect  {
 	padding: 10px 0px;
 	text-align: center;
 	border-radius: 5px;
+
+	&.green {
+		background: #22BC9B;
+	}
 }
 #activity a
 {
@@ -140,7 +144,6 @@ header #logo img:hover,header #logo img.hover_effect  {
 
 #right
 {
-	display: inline-block;
 	display: none;
 	margin-right: 2%;
 	position: absolute;

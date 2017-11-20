@@ -421,6 +421,8 @@ header #logo img:hover, header #logo img.hover_effect {
   padding: 10px 0px;
   text-align: center;
   border-radius: 5px; }
+  #activity h3.green {
+    background: #22BC9B; }
 
 #activity a {
   border-bottom: 1px solid #ccc;
@@ -438,7 +440,6 @@ header #logo img:hover, header #logo img.hover_effect {
   background: rgba(177, 177, 177, 0.16); }
 
 #right {
-  display: inline-block;
   display: none;
   margin-right: 2%;
   position: absolute;
