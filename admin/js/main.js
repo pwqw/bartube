@@ -20,11 +20,11 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
-        if (items.length > 1) {
-            reproducir(items[1]);
+        if (items.length > 2) {
+            reproducir(items[2]);
         }
-        firebase.database().ref('playlist/' + items[0].datetime).remove();
-        delete items[0];
+        firebase.database().ref('playlist/' + items[1].datetime).remove();
+        delete items[1];
     }
 }
 
@@ -62,8 +62,8 @@ function uploadVideos(data, init) {
     }
 
     var html = '';
-    for (var i=0; i<items.length; i++) {
-        if ( i > 0) {
+    for (var i=1; i<items.length; i++) {
+        if ( i > 1) {
             html += videoListTemplate(items[i], i);
         }
         else if (init) {
