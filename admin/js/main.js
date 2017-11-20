@@ -1,15 +1,44 @@
+/*
+    Google Analytics
+ */
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-75616535-11', 'auto');
+ga('send', 'pageview');
+
+/*
+    Firebase
+ */
+var config = {
+    apiKey: "AIzaSyCrT5qZDQezGBcZy0us1IBGz1Arm5Ayj2Y",
+    authDomain: "bartube-net.firebaseapp.com",
+    databaseURL: "https://bartube-net.firebaseio.com",
+    projectId: "bartube-net",
+    storageBucket: "bartube-net.appspot.com",
+    messagingSenderId: "518883989897"
+};
+firebase.initializeApp(config);
+
+/*
+    YouTube API
+ */
+var firstScriptTag = document.getElementsByTagName('script')[0],
+    tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+/*
+    BarTube
+ */
 var $list = $('#list_youtube'),
     $playerContainer = $('#player_container'),
     $right = $('#right'),
     init = true,
     player,
     items;
-
-var firstScriptTag = document.getElementsByTagName('script')[0],
-    tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 
 function onPlayerReady(event) {
     event.target.playVideo();
