@@ -1,9 +1,7 @@
 var $list = $('#list_youtube'),
     $playerContainer = $('#player_container'),
     $right = $('#right'),
-    $link = $('#link'),
-    $text = $('#text'),
-    $item,
+    init = true,
     player,
     items;
 
@@ -20,11 +18,7 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
-        if (items.length > 2) {
-            reproducir(items[2]);
-        }
-        firebase.database().ref('playlist/' + items[1].datetime).remove();
-        delete items[1];
+        next();
     }
 }
 
@@ -34,11 +28,10 @@ function reproducir(video, init) {
         var html = videoListTemplate(video, -1, 'video_player');
         $playerContainer.html(html);
 
-        var videoId = items.length > 0 ? items[0].id.videoId :'';
         player = new YT.Player('player', {
             height: '360',
             width: '640',
-            videoId: videoId,
+            videoId: video.id.videoId,
             events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange
@@ -51,7 +44,7 @@ function reproducir(video, init) {
 }
 
 
-function uploadVideos(data, init) {
+function uploadVideos(data) {
 
     items = [];
     for (var key in data) {
@@ -62,12 +55,13 @@ function uploadVideos(data, init) {
     }
 
     var html = '';
-    for (var i=1; i<items.length; i++) {
-        if ( i > 1) {
+    for (var i=0; i<items.length; i++) {
+        if ( i > 0) {
             html += videoListTemplate(items[i], i);
         }
         else if (init) {
             reproducir(items[i], init);
+            init = false;
         }
     }
 
@@ -99,13 +93,44 @@ function videoListTemplate(video, i, tpl) {
 }
 
 
+function play() {
+    if (player && player.playVideo) player.playVideo();
+}
+
+
+function pause() {
+    if (player && player.pauseVideo) player.pauseVideo();
+}
+
+
+function next() {
+    if (items.length > 1) {
+        reproducir(items[1]);
+    }
+    if (items.length > 0) {
+        var first = items.shift();
+        firebase.database().ref('playlist/' + first.datetime).remove();
+    }
+    else {
+        cleanList();
+    }
+}
+
+function cleanList() {
+    $list.html('');
+    $playerContainer.html('<h1>Lista de reproducción vacía</h1>');
+    firebase.database().ref('playlist').remove();
+    init = true;
+}
+
+
 function onYouTubeIframeAPIReady() {
-
-    firebase.database().ref('playlist/').once('value', function (data) {
-        uploadVideos( data.val(), true );
-
-        firebase.database().ref('playlist/').on('value', function (data) {
-            uploadVideos( data.val() );
-        });
+    firebase.database().ref('playlist/').on('value', function (data) {
+        uploadVideos( data.val() );
     });
+
+    $('#play').click(play);
+    $('#pause').click(pause);
+    $('#next').click(next);
+    $('#clean').click(cleanList);
 }
