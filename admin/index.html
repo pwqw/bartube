@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta charset="UTF-8">
+
+    <title>BarTube: Admin</title>
+
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="../css/estilos.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+</head>
+<body>
+
+<section id="wrapper">
+    <header>
+        <figure id="logo">
+            <a href="/bartube/"><img src="../img/logo.png" /></a>
+        </figure>
+        <h1>Lista de videos en reproducción</h1>
+    </header>
+
+    <aside id="right">
+        <section id="activity">
+            <h2>Acciones</h2>
+            <a id="next"  href="#">
+                <span class="small">⏩️</span>
+                <span class="big">Siguiente</span>
+            </a>
+            <a id="pause" href="#">
+                <span class="small">⏹</span>
+                <span class="big">Pausar</span>
+            </a>
+            <a id="play"  href="#">
+                <span class="small">▶️</span>
+                <span class="big">Reproducir</span>
+            </a>
+            <a id="clean" href="#">
+                <span class="small">🗑</span>
+                <span class="big">Vaciar lista</span>
+            </a>
+        </section>
+    </aside>
+
+    <section class="result_youtube">
+
+        <div id="player_container" class="first-big">
+            <h1>Lista de reproducción vacía</h1>
+        </div>
+
+        <div id="list_youtube"></div>
+
+    </section>
+
+    <footer>
+        <p><strong>Potenciado por <a href="https://gryphsoft.com" target="_blank">Gryphsoft</a></strong></p>
+        <p>Gryphsoft 2018 </p>
+    </footer>
+
+    <script src='../js/mustache.min.js'></script>
+    <script src='../js/templates.js'></script>
+    <script src='js/main.js'></script>
+</section>
+</body>
+</html>
